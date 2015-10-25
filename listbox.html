@@ -1,0 +1,103 @@
+<html>    
+<head>
+
+</head>
+
+<body>
+  <hr />  
+  <form name="combo_box">
+    <table>
+       <tr>  
+          <td>
+              <select multiple size="10" name="FromLB" style="width:150">
+                  <option value="uno">opcion 1</option>
+                  <option value="dos">opcion 2</option>
+                  <option value="tres">opcion 3</option>
+                  <option value="cuatro">opcion 4</option>
+                  <option value="cinco">opcion 5</option>
+                  <option value="seis">opcion 6</option>
+                  <option value="siete">opcion 7</option>
+                  <option value="ocho">opcion 8</option>
+                  <option value="nueve">opcion 9</option>
+                  <option value="diez">opcion 10</option>
+              </select>
+          </td>
+          <td align="center" valign="middle">
+             <input type="button" onClick="move( this.form.FromLB, this.form.ToLB )" value="->"><br />
+             <input type="button" onClick="move( this.form.ToLB, this.form.FromLB )" value="<-">
+          </td>
+          <td>
+             <select multiple size="10" name="ToLB" style="width:150"> </select>
+          </td>
+      </tr>
+    </table>
+    <input type="button" onClick="guardar(this.form.ToLB)" value="Guardar">
+
+  </form>
+  <hr />
+    <script language="javascript"> 
+    function move(tbFrom, tbTo) 
+    {
+        var arrFrom = new Array(); 
+        var arrTo   = new Array(); 
+        var arrLU   = new Array();
+        var i;
+        for (i = 0; i < tbTo.options.length; i++) 
+        {
+            arrLU[tbTo.options[i].text] = tbTo.options[i].value;
+            arrTo[i] = tbTo.options[i].text;
+        }
+
+        var fLength = 0;
+        var tLength = arrTo.length;
+        for(i = 0; i < tbFrom.options.length; i++) 
+        {
+            arrLU[tbFrom.options[i].text] = tbFrom.options[i].value;
+            if (tbFrom.options[i].selected && tbFrom.options[i].value != "") 
+            {
+                arrTo[tLength] = tbFrom.options[i].text;
+                tLength++;
+            }
+            else 
+            {
+                arrFrom[fLength] = tbFrom.options[i].text;
+                fLength++;
+            }
+        }
+
+        tbFrom.length = 0;
+        tbTo.length   = 0;
+        var ii;
+
+        for(ii = 0; ii < arrFrom.length; ii++) 
+        {
+            var no     = new Option();
+            no.value   = arrLU[arrFrom[ii]];
+            no.text    = arrFrom[ii];
+            tbFrom[ii] = no;
+        }
+
+        for(ii = 0; ii < arrTo.length; ii++) 
+        {
+            var no   = new Option();
+            no.value = arrLU[arrTo[ii]];
+            no.text  = arrTo[ii];
+            tbTo[ii] = no;
+        }
+    }
+
+    function guardar(elementos){
+    	var indxs = '';
+    	var sep = '';
+    	for (i = 0; i < elementos.options.length; i++) 
+        {
+        	sep = (i==elementos.options.length - 1) ? '' : ',';
+
+            indxs += elementos.options[i].value+sep;
+        }
+        alert(indxs)
+
+    }
+</script>
+</body>
+</html> 
